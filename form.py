@@ -453,7 +453,7 @@ def save_to_excel(workbook, file_path, mmhg_label_od, mmhg_label_oi,
                     periphery_OD, periphery_OD_comentarios, periphery_OI, periphery_OI_comentarios, 
                     vitreous_OD, vitreous_OD_comentarios, vitreous_OI, vitreous_OI_comentarios, 
                     dx_myopia, dx_hyperopia, dx_astigmatism, dx_comentarios, tx, 
-                    doctor_firm, doctor_name, creation_date, last_edit_date, addendum])
+                    doctor_firm, doctor_name, creation_date, last_edit_date, ""])
         workbook.save(file_path)
         messagebox.showinfo("Success", "Data saved successfully!")
         clear_form(mmhg_label_od, mmhg_label_oi, dilatation_checkbox, 
