@@ -136,7 +136,7 @@ def setup_window(root):
     root.title("Registros Estudiantiles")
     root.bind("<Button-1>", focus_widget)
     root.resizable(True, True)
-    root.minsize(1380, 700)
+    root.minsize(1280, 700)
 
     canvas = tk.Canvas(root)
     canvas.pack(fill="both", expand=True)
