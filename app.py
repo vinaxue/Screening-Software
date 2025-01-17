@@ -1,18 +1,23 @@
 import tkinter as tk
-
-# Define the Excel file path
-EXCEL_FILE = "Guatemalan_school_screening_form.xlsx"
+from tkinter import ttk
 
 # Create the main window
 root = tk.Tk()
+root.title("Software de evaluación escolar guatemalteco")
+root.minsize(200, 300)
 
-import form 
 import search
 import utils
+import database as db
 
-content_frame = utils.setup_window(root)
+cur = db.connect_database()
+db.create_tables(cur)
 
-workbook = form.open_file(EXCEL_FILE)
-search.create_search(workbook, content_frame, EXCEL_FILE)
+tk.Button(root, text="Ingresar Nuevo Registro", command=lambda cur=cur: utils.open_new_form(cur)).grid(row=0, column=0, columnspan=7, pady=10)
+ttk.Separator(root, orient='horizontal').grid(row=1, column=0, padx=5, columnspan=7, pady=5, sticky="ew")
+
+results_frame = tk.Frame(root)
+search.create_search(cur, root, results_frame, 2)
+results_frame.grid(row=5, column=0, columnspan=7, pady=20, padx=10, sticky="nsew")
 
 root.mainloop()
