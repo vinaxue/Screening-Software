@@ -117,6 +117,12 @@ def export_to_pdf(data):
     success_message = f"Rx de anteojos se guardó correctamente como {file_name}."
     messagebox.showinfo("Éxito", success_message)
 
+def update_table_radiobuttons(all_normal_var, var, comment_textbox):
+    if all_normal_var.get() == 1:
+        var.set("Normal") 
+        comment_textbox.delete("1.0", tk.END)
+        comment_textbox.config(state="disabled", bg="lightgray")
+
 ######################## Window Utils ############################
 
 # Update the canvas scrollregion dynamically

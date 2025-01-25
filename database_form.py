@@ -303,11 +303,27 @@ def create_form(cur, window, content_frame, row,
     separator_5.grid(row=row+14, column=0, padx=5, columnspan=9, pady=5, sticky="ew")
 
     ######################## table ###############################
-    table_od_label = tk.Label(content_frame, text="OD", font=("Helvetica", 10, "bold"))
-    table_od_label.grid(row=row+15, column=0, columnspan=3, sticky="e", padx=130)
-    table_oi_label = tk.Label(content_frame, text="OI", font=("Helvetica", 10, "bold"))
-    table_oi_label.grid(row=row+15, column=4, columnspan=3, sticky="w", padx=150)
-    table_labels = [table_od_label, table_oi_label]
+    od_frame = tk.Frame(content_frame)
+    od_frame.grid(row=row+15, column=0, columnspan=3, sticky="e", padx=80)
+    table_od_label = tk.Label(od_frame, text="OD", font=("Helvetica", 10, "bold"))
+    table_od_label.pack(side="left", padx=(0, 5))
+
+    def update_all_normal(var): 
+        var.set("1")
+
+    od_all_normal = tk.IntVar()
+    od_all_normal_checkbox = tk.Button(od_frame, text="Todo normal", command=lambda var=od_all_normal: update_all_normal(var))
+    od_all_normal_checkbox.pack(side="left")
+
+    oi_frame = tk.Frame(content_frame)
+    oi_frame.grid(row=row+15, column=4, columnspan=3, sticky="w", padx=80)
+    table_oi_label = tk.Label(oi_frame, text="OI", font=("Helvetica", 10, "bold"))
+    table_oi_label.pack(side="left", padx=(0, 5))
+    oi_all_normal = tk.IntVar()
+    oi_all_normal_checkbox = tk.Button(oi_frame, text="Todo normal", command=lambda var=oi_all_normal: update_all_normal(var))
+    oi_all_normal_checkbox.pack(side="left")
+
+    table_labels = [od_frame, oi_frame]
 
     table_entries = []
 
@@ -330,7 +346,7 @@ def create_form(cur, window, content_frame, row,
         eyelid_od_prefill = eyelid_oi_prefill = None
 
     eyelid_od_var, eyelid_oi_var, eyelid_od_radiobuttons, eyelid_oi_radiobuttons, eyelid_label = create_row(
-        content_frame, "Párpados", eyelid_od_comment, eyelid_oi_comment, row+16, 
+        content_frame, "Párpados", eyelid_od_comment, eyelid_oi_comment, row+16, od_all_normal, oi_all_normal,
         status="disabled" if record_data else "normal", od_data=eyelid_od_prefill, oi_data=eyelid_oi_prefill)
     eyelid_widgets = [eyelid_od_radiobuttons, eyelid_oi_radiobuttons, eyelid_label, eyelid_od_comment, eyelid_oi_comment]
     table_entries.append(eyelid_widgets)
@@ -351,7 +367,7 @@ def create_form(cur, window, content_frame, row,
         conjunctiva_od_prefill = conjunctiva_oi_prefill = None
 
     conjunctiva_od_var, conjunctiva_oi_var, conjunctiva_od_radiobuttons, conjunctiva_oi_radiobuttons, conjunctiva_label = create_row(
-        content_frame, "Conjunctiva", conjunctiva_od_comment, conjunctiva_oi_comment, row+18,
+        content_frame, "Conjunctiva", conjunctiva_od_comment, conjunctiva_oi_comment, row+18, od_all_normal, oi_all_normal,
         status="disabled" if record_data else "normal", od_data=conjunctiva_od_prefill, oi_data=conjunctiva_oi_prefill)
     conjunctiva_widgets = [conjunctiva_od_radiobuttons, conjunctiva_oi_radiobuttons, conjunctiva_label, conjunctiva_od_comment, conjunctiva_oi_comment]
     table_entries.append(conjunctiva_widgets)
@@ -372,7 +388,7 @@ def create_form(cur, window, content_frame, row,
         cornea_od_prefill = cornea_oi_prefill = None
 
     cornea_od_var, cornea_oi_var, cornea_od_radiobuttons, cornea_oi_radiobuttons, cornea_label = create_row(
-        content_frame, "Cornea", cornea_od_comment, cornea_oi_comment, row+20, 
+        content_frame, "Cornea", cornea_od_comment, cornea_oi_comment, row+20, od_all_normal, oi_all_normal,
         status="disabled" if record_data else "normal", od_data=cornea_od_prefill, oi_data=cornea_oi_prefill)
     cornea_widgets = [cornea_od_radiobuttons, cornea_oi_radiobuttons, cornea_label, cornea_od_comment, cornea_oi_comment]
     table_entries.append(cornea_widgets)
@@ -393,7 +409,7 @@ def create_form(cur, window, content_frame, row,
         iris_od_prefill = iris_oi_prefill = None
 
     iris_od_var, iris_oi_var, iris_od_radiobuttons, iris_oi_radiobuttons, iris_label = create_row(
-        content_frame, "Iris", iris_od_comment, iris_oi_comment, row+22, 
+        content_frame, "Iris", iris_od_comment, iris_oi_comment, row+22, od_all_normal, oi_all_normal,
         status="disabled" if record_data else "normal", od_data=iris_od_prefill, oi_data=iris_oi_prefill)
     iris_widgets = [iris_od_radiobuttons, iris_oi_radiobuttons, iris_label, iris_od_comment, iris_oi_comment]
     table_entries.append(iris_widgets)
@@ -414,7 +430,7 @@ def create_form(cur, window, content_frame, row,
         pupil_od_prefill = pupil_oi_prefill = None
 
     pupil_od_var, pupil_oi_var, pupil_od_radiobuttons, pupil_oi_radiobuttons, pupil_label = create_row(
-        content_frame, "Pupil", pupil_od_comment, pupil_oi_comment, row+24, 
+        content_frame, "Pupil", pupil_od_comment, pupil_oi_comment, row+24, od_all_normal, oi_all_normal,
         status="disabled" if record_data else "normal", od_data=pupil_od_prefill, oi_data=pupil_oi_prefill)
     pupil_widgets = [pupil_od_radiobuttons, pupil_oi_radiobuttons, pupil_label, pupil_od_comment, pupil_oi_comment]
     table_entries.append(pupil_widgets)
@@ -435,7 +451,7 @@ def create_form(cur, window, content_frame, row,
         lente_od_prefill = lente_oi_prefill = None
 
     lente_od_var, lente_oi_var, lente_od_radiobuttons, lente_oi_radiobuttons, lente_label = create_row(
-        content_frame, "Lente", lente_od_comment, lente_oi_comment, row+26, 
+        content_frame, "Lente", lente_od_comment, lente_oi_comment, row+26, od_all_normal, oi_all_normal,
         status="disabled" if record_data else "normal", od_data=lente_od_prefill, oi_data=lente_oi_prefill)
     lente_widgets = [lente_od_radiobuttons, lente_oi_radiobuttons, lente_label, lente_od_comment, lente_oi_comment]
     table_entries.append(lente_widgets)
@@ -474,7 +490,7 @@ def create_form(cur, window, content_frame, row,
         nerve_od_prefill = nerve_oi_prefill = None
 
     nerve_od_var, nerve_oi_var, nerve_od_radiobuttons, nerve_oi_radiobuttons, nerve_label = create_row(
-        content_frame, "Nervio", nerve_od_comment, nerve_oi_comment, row+29, 
+        content_frame, "Nervio", nerve_od_comment, nerve_oi_comment, row+29, od_all_normal, oi_all_normal,
         status="disabled" if record_data else "normal", od_data=nerve_od_prefill, oi_data=nerve_oi_prefill)
     nerve_widgets = [nerve_od_radiobuttons, nerve_oi_radiobuttons, nerve_label, nerve_od_comment, nerve_oi_comment]
     table_entries.append(nerve_widgets)
@@ -495,7 +511,7 @@ def create_form(cur, window, content_frame, row,
         macula_od_prefill = macula_oi_prefill = None
 
     macula_od_var, macula_oi_var, macula_od_radiobuttons, macula_oi_radiobuttons, macula_label = create_row(
-        content_frame, "Macula", macula_od_comment, macula_oi_comment, row+31, 
+        content_frame, "Macula", macula_od_comment, macula_oi_comment, row+31, od_all_normal, oi_all_normal,
         status="disabled" if record_data else "normal", od_data=macula_od_prefill, oi_data=macula_oi_prefill)
     macula_widgets = [macula_od_radiobuttons, macula_oi_radiobuttons, macula_label, macula_od_comment, macula_oi_comment]
     table_entries.append(macula_widgets)
@@ -516,7 +532,7 @@ def create_form(cur, window, content_frame, row,
         vasculature_od_prefill = vasculature_oi_prefill = None
 
     vasculature_od_var, vasculature_oi_var, vasculature_od_radiobuttons, vasculature_oi_radiobuttons, vasculature_label = create_row(
-        content_frame, "Vasculatura", vasculature_od_comment, vasculature_oi_comment, row+33, 
+        content_frame, "Vasculatura", vasculature_od_comment, vasculature_oi_comment, row+33, od_all_normal, oi_all_normal,
         status="disabled" if record_data else "normal", od_data=vasculature_od_prefill, oi_data=vasculature_oi_prefill)
     vasculature_widgets = [vasculature_od_radiobuttons, vasculature_oi_radiobuttons, vasculature_label, vasculature_od_comment, vasculature_oi_comment]
     table_entries.append(vasculature_widgets)
@@ -537,7 +553,7 @@ def create_form(cur, window, content_frame, row,
         periphery_od_prefill = periphery_oi_prefill = None
 
     periphery_od_var, periphery_oi_var, periphery_od_radiobuttons, periphery_oi_radiobuttons, periphery_label = create_row(
-        content_frame, "Periferia", periphery_od_comment, periphery_oi_comment, row+35, 
+        content_frame, "Periferia", periphery_od_comment, periphery_oi_comment, row+35, od_all_normal, oi_all_normal,
         status="disabled" if record_data else "normal", od_data=periphery_od_prefill, oi_data=periphery_oi_prefill)
     periphery_widgets = [periphery_od_radiobuttons, periphery_oi_radiobuttons, periphery_label, periphery_od_comment, periphery_oi_comment]
     table_entries.append(periphery_widgets)
@@ -558,7 +574,7 @@ def create_form(cur, window, content_frame, row,
         vitreous_od_prefill = vitreous_oi_prefill = None
 
     vitreous_od_var, vitreous_oi_var, vitreous_od_radiobuttons, vitreous_oi_radiobuttons, vitreous_label = create_row(
-        content_frame, "Vitreous", vitreous_od_comment, vitreous_oi_comment, row+37, 
+        content_frame, "Vitreous", vitreous_od_comment, vitreous_oi_comment, row+37, od_all_normal, oi_all_normal,
         status="disabled" if record_data else "normal", od_data=vitreous_od_prefill, oi_data=vitreous_oi_prefill)
     vitreous_widgets = [vitreous_od_radiobuttons, vitreous_oi_radiobuttons, vitreous_label, vitreous_od_comment, vitreous_oi_comment]
     table_entries.append(vitreous_widgets)

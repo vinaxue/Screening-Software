@@ -1,20 +1,6 @@
 import tkinter as tk
+from tkinter import ttk
 import utils
-
-# def clear_form(*args):
-#     for widget in args:
-#         if isinstance(widget, tk.Entry):
-#             widget.delete(0, tk.END)
-#         elif isinstance(widget, tk.Text):
-#             widget.delete("1.0", tk.END)
-#         elif isinstance(widget, tk.Radiobutton):
-#             widget.deselect()
-#         elif isinstance(widget, tk.Checkbutton):
-#             widget.deselect()
-#         elif isinstance(widget, tk.StringVar):
-#             widget.set("")
-#         elif isinstance(widget, tk.IntVar):
-#             widget.set(0)
 
 def create_label_and_entry(content_frame, label_text, row, col_start, col_span_entry=1, default_value=None, prefill_value=None):
     label = tk.Label(content_frame, text=label_text)
@@ -49,7 +35,7 @@ def create_label_and_radiobuttons(content_frame, row, col_start, options, variab
         col_start -= 1
     radiobuttons = []
     for idx, (text, value) in enumerate(options.items()):
-        radiobutton = tk.Radiobutton(content_frame, text=text, variable=variable, value=value, state="disabled" if disabled else "normal")
+        radiobutton = ttk.Radiobutton(content_frame, text=text, variable=variable, value=value, state="disabled" if disabled else "normal")
         radiobutton.grid(row=row, column=col_start+1+idx, padx=10, pady=5, sticky=button_align)
         radiobuttons.append(radiobutton)
     return radiobuttons
@@ -108,7 +94,7 @@ def create_table(content_frame, row, col_start, row_headers, col_headers):
         row_labels.append(label)
     return col_labels, row_labels
 
-def create_row(parent, topic, od_comment, oi_comment, row, status="normal", od_data=None, oi_data=None): 
+def create_row(parent, topic, od_comment, oi_comment, row, all_normal_od_var, all_normal_oi_var, status="normal", od_data=None, oi_data=None): 
     od_var = tk.StringVar()
     oi_var = tk.StringVar()
     options = {
@@ -145,6 +131,9 @@ def create_row(parent, topic, od_comment, oi_comment, row, status="normal", od_d
         oi_radiobuttons[1].config(state=status)
         oi_comment.config(state="disabled")
     
+    all_normal_od_var.trace("w", lambda *args: utils.update_table_radiobuttons(all_normal_od_var, od_var, od_comment))
+    all_normal_oi_var.trace("w", lambda *args: utils.update_table_radiobuttons(all_normal_oi_var, oi_var, oi_comment))
+
     return od_var, oi_var, od_radiobuttons, oi_radiobuttons, label
 
 class EntryWithPlaceholder(tk.Entry):
