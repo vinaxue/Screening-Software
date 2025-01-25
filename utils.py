@@ -1,4 +1,5 @@
 import os
+import sys
 import tkinter as tk
 from datetime import datetime
 from tkinter import font, messagebox
@@ -52,7 +53,7 @@ def generate_id(firstname, lastname, dob=""):
     return "_".join([firstname.strip(), lastname.strip(), dob.strip()])    
 
 def export_to_pdf(data):
-    base_dir = os.path.dirname(os.path.abspath(__file__))
+    base_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
     directory = os.path.join(base_dir, "informes")
     if directory and not os.path.exists(directory):
         os.makedirs(directory)

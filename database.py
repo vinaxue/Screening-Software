@@ -9,23 +9,23 @@ def connect_database():
 
 def create_tables(cur): 
     cur.execute('''CREATE TABLE IF NOT EXISTS School(
-                Name VARCHAR(255) NOT NULL
+                Name CHAR(50) NOT NULL
                 )''')
 
     cur.execute('''CREATE TABLE IF NOT EXISTS Student(
-                StudentID VARCHAR(255) NOT NULL PRIMARY KEY,
-                FirstName VARCHAR(255) NOT NULL CHECK(FirstName GLOB '[a-zA-Z]*'), 
-                LastName VARCHAR(255) NOT NULL CHECK(LastName GLOB '[a-zA-Z]*'), 
-                DateOfBirth DATE NOT NULL CHECK(DateOfBirth GLOB '__/__/____'), 
-                PhoneNumber VARCHAR(255) NOT NULL CHECK(PhoneNumber GLOB '[0-9]*'), 
+                StudentID CHAR(200) NOT NULL PRIMARY KEY,
+                FirstName CHAR(50) NOT NULL CHECK(FirstName GLOB '[a-zA-Z]*'), 
+                LastName CHAR(50) NOT NULL CHECK(LastName GLOB '[a-zA-Z]*'), 
+                DateOfBirth DATE NOT NULL, 
+                PhoneNumber CHAR(10) NOT NULL CHECK(PhoneNumber GLOB '[0-9]*'), 
                 SchoolID INTEGER NOT NULL,
                 FOREIGN KEY (SchoolID) REFERENCES School(_rowid_)
                 )''')
 
     cur.execute('''CREATE TABLE IF NOT EXISTS Doctor(
-                DoctorID VARCHAR(255) NOT NULL PRIMARY KEY,
-                FirstName VARCHAR(255) NOT NULL CHECK(FirstName GLOB '[a-zA-Z]*'), 
-                LastName VARCHAR(255) NOT NULL CHECK(LastName GLOB '[a-zA-Z]*')
+                DoctorID CHAR(50) NOT NULL PRIMARY KEY,
+                FirstName CHAR(50) NOT NULL CHECK(FirstName GLOB '[a-zA-Z]*'), 
+                LastName CHAR(200) NOT NULL CHECK(LastName GLOB '[a-zA-Z]*')
                 )''')
 
     cur.execute('''CREATE TABLE IF NOT EXISTS VisionDistance(
